@@ -1,0 +1,39 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://root:root@db:5432/movies_reviews
+    stdin_open: true
+    tty: true
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: movies_reviews
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+  sidekiq:
+    build: .
+    command: ["bundle", "exec", "sidekiq"]
+    volumes:
+      - ".:/app"
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--bind", "0.0.0.0"]
+
+volumes:
+  pg_data:
