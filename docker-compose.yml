@@ -1,5 +1,12 @@
 version: '3'
 services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--bind", "0.0.0.0"]
+    networks:
+      - my_network
   web:
     build: .
     ports:
@@ -8,11 +15,13 @@ services:
       - .:/app
     depends_on:
       - db
+      - redis
     environment:
       RAILS_ENV: development
       DATABASE_URL: postgres://root:root@db:5432/movies_reviews
     stdin_open: true
     tty: true
+
   db:
     image: postgres:14
     environment:
@@ -32,13 +41,7 @@ services:
       - redis
     networks:
       - my_network
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
-    command: ["redis-server", "--bind", "0.0.0.0"]
-    networks:
-      - my_network
+
 volumes:
   pg_data:
 

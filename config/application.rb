@@ -23,5 +23,10 @@ module MoviesReviews
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.paths.add File.join('app', 'services'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', '*')]
+    config.active_job.queue_adapter = :sidekiq
+
+    # config.cache_store = :redis_cache_store, { url: 'redis://redis:6379/0' }
   end
 end

@@ -1,0 +1,10 @@
+
+
+<!-- search form -->
+<%= form_tag(movies_path, method: 'get') do %>
+  <%= text_field_tag(:actor_name, params[:actor_name] , class: "form-control" , placeholder: "search by actor_name") %>
+  <%= submit_tag %>
+<% end %>
+
+
+<%= render "movies" , movies: @movies %>
