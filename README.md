@@ -14,12 +14,12 @@ I used services and job queues and sidekiq, redis and
 
 Associations:
 
-Movie belongs to a Director.
-Movie has many Reviews.
-Review belongs to both Movie and User.
-Movie has many Actors through MovieActor.
-Movie has many Countries through MovieCountry.
-Movie has many Cities through MovieCity.
-MovieActor, MovieCountry, and MovieCity are join tables representing many-to-many relationships.
-Review has a many-to-one relationship with both Movie and User.
+1. Movie belongs to a Director.
+2. Movie has many Reviews.
+3. Review belongs to both Movie and User.
+4. Movie has many Actors through MovieActor.
+5. Movie has many Countries through MovieCountry.
+6. Movie has many Cities through MovieCity.
+7. MovieActor, MovieCountry, and MovieCity are join tables representing many-to-many relationships.
+8. Review has a many-to-one relationship with both Movie and User.
 
